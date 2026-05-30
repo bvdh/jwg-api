@@ -26,6 +26,8 @@ IHE IUA defines three key actors for authorization:
 - **[Resource Server](https://profiles.ihe.net/ITI/IUA/index.html#34113-resource-server)** - Validates tokens and enforces access control on protected resources (the FHIR API)
 - **[Authorization Client](https://profiles.ihe.net/ITI/IUA/index.html#34111-authorization-client)** - A client that retrieves access tokens and presents them as part of transactions.
 
+This IG uses these IUA actors as specified and does not add IG-local constraints that would diverge from them; behavior on the wire follows SMART Backend Services. See [IUA and SMART Backend Services](#iua-and-smart-backend-services).
+
 
 ### IHE IUA Actor Groupings
 
@@ -185,7 +187,7 @@ All API communications SHALL use secure transport as defined by [IHE ATNA](https
 
 ATNA is referenced here only for the secure-transport (TLS) requirement — the Authenticate Node [ITI-19] piece. The Record Audit Event [ITI-20] transaction is OPTIONAL; Member States MAY use national audit mechanisms. Foundational time synchronization (IHE Consistent Time) is RECOMMENDED, not required; national time services (for example NTPv4) satisfy the intent.
 
-### IUA and SMART Backend Services
+### IUA and SMART Backend Services {#iua-and-smart-backend-services}
 
 SMART Backend Services and IHE IUA **compose**: IUA supplies the actor model (Authorization Client, Authorization Server, Resource Server) and the actor groupings used across this IG; SMART Backend Services supplies the token, scope, and client-authentication mechanics on the wire. They are not competing alternatives to choose between.
 
