@@ -13,7 +13,7 @@ This specification defines **system-to-system** authorization only:
 - Client systems authenticate with client credentials
 - No user-level authentication is required at the API level
 
-User-level authorization requirements are not in initial scope for this Implementation Guide.
+User-level authorization requirements are not in initial scope for this Implementation Guide. User-level authentication runs at the access service (eIDAS layer), not the EHR API surface. Where an access token carries user identity claims, the Resource Server passes them through to its audit records (`AuditEvent.agent.who`); the EHR API does not itself authenticate the end user.
 
 
 ### Authorization Actors
