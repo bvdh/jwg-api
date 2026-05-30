@@ -181,11 +181,18 @@ All API communications SHALL use secure transport as defined by [IHE ATNA](https
 
 ### IUA and SMART Backend Services
 
-This IG uses IHE IUA for actor definitions and groups those actors with SMART Backend Services behavior. IUA itself [notes its relationship to SMART-on-FHIR](https://profiles.ihe.net/ITI/IUA/#relation-to-smart-on-fhir): "IUA is not based on SMART-on-FHIR, but does strive to not conflict with that standard."
+SMART Backend Services and IHE IUA **compose**: IUA supplies the actor model (Authorization Client, Authorization Server, Resource Server) and the actor groupings used across this IG; SMART Backend Services supplies the token, scope, and client-authentication mechanics on the wire. They are not competing alternatives to choose between.
 
-Where IUA and SMART Backend Services requirements differ, this IG follows SMART.
+IUA itself [notes its relationship to SMART-on-FHIR](https://profiles.ihe.net/ITI/IUA/#relation-to-smart-on-fhir): "IUA is not based on SMART-on-FHIR, but does strive to not conflict with that standard." Where the two differ, this IG follows SMART. The differences relevant to this IG:
 
-For example: this IG requires `private_key_jwt` client authentication (per SMART Backend Services). While `client_secret` with HTTP Basic Auth is IUA-compliant, it is NOT compliant with this IG.
+| Topic | IUA | This IG (follows SMART) |
+|---|---|---|
+| Client authentication | Permits `client_secret` with HTTP Basic Auth | `private_key_jwt` required; mTLS / RFC 8705 optional. `client_secret` Basic Auth not used. |
+| Discovery | OAuth metadata | SMART `.well-known/smart-configuration` |
+| Scope syntax | Not prescribed | SMART v2 resource scopes |
+| Token format | JWT or opaque | Per SMART Backend Services |
+
+Defer to each specification's own text for behavior not restated here.
 
 ### Potential Future Work: User-Level Authorization
 
