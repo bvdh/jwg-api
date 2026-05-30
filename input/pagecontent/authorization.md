@@ -85,6 +85,8 @@ If the server supports `private_key_jwt` client authentication, it SHOULD advert
 
 See [SMART Backend Services](https://hl7.org/fhir/smart-app-launch/backend-services.html) for the full specification.
 
+Clients (Consumers) MAY rely on any capability the Resource Server advertises and MAY request any scope the server lists in `scopes_supported`. The obligations above bind the Provider; the corresponding Consumer obligations are limited to presenting a valid token and requesting only supported scopes.
+
 #### 2. Get Access Token (ITI-71) {#get-access-token}
 
 Clients obtain tokens by POSTing to the token endpoint discovered via `.well-known/smart-configuration`.
