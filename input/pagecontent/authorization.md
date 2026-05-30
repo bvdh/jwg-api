@@ -91,8 +91,7 @@ Clients obtain tokens by POSTing to the token endpoint discovered via `.well-kno
 
 **Token Request**:
 - Grant type: `client_credentials`
-- Client assertion: JWT signed by client private key
-- Client authentication: Asymmetric (public key registered out-of-band)
+- Client authentication: `private_key_jwt` (asymmetric, public key registered out-of-band), per SMART Backend Services. Servers MAY also support mutual-TLS client authentication and certificate-bound access tokens per [RFC 8705](https://www.rfc-editor.org/rfc/rfc8705) as an option, where national infrastructure or policy requires higher assurance.
 
 **Token Issuance**:
 
