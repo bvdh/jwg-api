@@ -181,6 +181,8 @@ sequenceDiagram
 
 All API communications SHALL use secure transport as defined by [IHE ATNA](https://profiles.ihe.net/ITI/TF/Volume1/ch-9.html) with the TLS 1.2 Floor using BCP195 Option.
 
+ATNA is referenced here only for the secure-transport (TLS) requirement — the Authenticate Node [ITI-19] piece. The Record Audit Event [ITI-20] transaction is OPTIONAL; Member States MAY use national audit mechanisms. Foundational time synchronization (IHE Consistent Time) is RECOMMENDED, not required; national time services (for example NTPv4) satisfy the intent.
+
 ### IUA and SMART Backend Services
 
 SMART Backend Services and IHE IUA **compose**: IUA supplies the actor model (Authorization Client, Authorization Server, Resource Server) and the actor groupings used across this IG; SMART Backend Services supplies the token, scope, and client-authentication mechanics on the wire. They are not competing alternatives to choose between.
