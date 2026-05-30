@@ -22,4 +22,4 @@ The service may query EHR systems directly, through national infrastructure that
 
 ### Authorization
 
-The professional's identity and authorization are established at the access service. At the EHR API surface, the consumer is an authorized system-to-system caller; the mechanism — for example SMART Backend Services credentials issued by a national authorization server — is described in [Authorization](authorization.html).
+The professional's identity and authorization are established at the access service. At the EHR API surface, the consumer is an authorized system-to-system caller. The mechanism — SMART Backend Services grouped with IHE IUA actors, credentials issued by a national authorization server — is described in [Authorization](authorization.html).
