@@ -5,6 +5,8 @@ Authorization is required for all API transactions. This IG inherits [SMART Back
 
 We adopt SMART Backend Services as specified—including grant types, client authentication (`private_key_jwt`), and related JWT requirements—to align with globally recognized specifications and reduce implementation burden. As a profile on SMART, all underlying SMART requirements still apply; omitting a detail from this IG does not exempt implementations from SMART requirements.
 
+SMART Backend Services is itself a profile of [RFC 6749](https://www.rfc-editor.org/rfc/rfc6749) (`client_credentials` grant) and [RFC 8414](https://www.rfc-editor.org/rfc/rfc8414) (authorization-server metadata), packaged as a single testable mechanism. This IG requires that profile (SHALL) rather than the bare RFCs, and rather than offering SMART as one option among several: a single inherited mechanism at the EHR API surface gives interoperability and conformance testability. National trust frameworks that use coarser, regulatory-level scope groupings operate at the access-service layer; the EHR API enforces resource-level scopes. IHE conformance alone does not satisfy this requirement—SMART Backend Services SHALL be supported.
+
 > **Note:** This IG uses IHE IUA actor definitions grouped with SMART Backend Services normative requirements. Where requirements differ, SMART Backend Services is authoritative.
 
 ### Scope: System-to-System Authorization
