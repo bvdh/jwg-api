@@ -202,6 +202,12 @@ Integration with the EU Digital Identity Wallet and eIDAS framework may be addre
 
 Member States MAY layer user-level authorization on top of system-to-system authorization as appropriate for their national infrastructure.
 
+### Relationship to eIDAS and the EU Digital Identity Wallet
+
+EHDS [Article 12](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202500327#art_12) and [Article 16](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202500327#art_16) place eIDAS and EU Digital Identity Wallet obligations on **access services** and cross-border exchange — not on EHR systems. SMART Backend Services authorizes the system-to-system call between an access service and an EHR. Identity assurance for the human user (eIDAS levels, wallet presentation) is established at the access service before it calls the EHR API.
+
+This IG therefore keeps SMART Backend Services as the EHR-surface mechanism and does not restate eIDAS/EUDIW requirements that bind the access-service layer. Member State access services SHALL meet their applicable eIDAS-2 obligations.
+
 ### References
 
 - [SMART Application Launch](https://hl7.org/fhir/smart-app-launch/)
