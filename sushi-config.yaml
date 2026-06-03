@@ -114,8 +114,6 @@ pages:
       title: Resource Exchange Patterns
   implementation.md:
     title: Implementation
-    ehr-system-composition.md:
-      title: EHR System Composition
     example-patient-summary.md:
       title: Retrieve a European Patient Summary
     environment-healthcare-provider.md:
@@ -130,6 +128,16 @@ pages:
       title: Health Data Access Service
     usecase-wellness-app.md:
       title: Wellness App Access
+  api-definitions.md:
+    title: API Definitions
+    ehr-system-composition.md:
+      title: EHR System Composition
+    api-intra-healthcare-provider.md:
+      title: API for Intra Healthcare Provider Exchange Environment
+    api-wellness.md:
+      title: API Wellness Applications
+    api-cross-memberstate-organization.md:
+      title: API for Cross-Member State Organizational Exchange
   about.md:
     title: About
     contributors.md:

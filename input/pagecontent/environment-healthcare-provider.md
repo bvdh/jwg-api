@@ -4,7 +4,7 @@ This environment relates to the exchange of information within a Healthcare Prov
 
 <div>
   <figure class="figure">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 816 442" class="figure-img img-responsive img-rounded center-block" style="max-width:40%; height:auto;" role="img" >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 816 442" class="figure-img img-responsive img-rounded center-block" style="max-width:80%; height:auto;" role="img" >
       <image href="environment-intra-healthcare-provider.drawio.svg" width="816" height="442" preserveAspectRatio="xMidYMid meet" />
     </svg>
     <figcaption class="figure-caption"><em>Figure: Intra Healthcare Provider</em></figcaption>
@@ -12,30 +12,32 @@ This environment relates to the exchange of information within a Healthcare Prov
   <p></p>
 </div>
 
-A healthcare organization deploying EHR systems with can connect them together to serve internal exchange needs or to aggregate data for external exchange. 
-
-### Scope
-
-Healthcare Organizations use a complex and varied array of interoperability standards and solutions to meet the standards of practice and workflow needs of the healthcare organization. We do not describe all of these use cases here, but focus on where the functional components described in the EU Health Data API can be used within a Healthcare Organization.
+A Healthcare Provider contains a set of EHR Systems that can communicate with each other using the Intra-Organization-API. The Healthcare Provider communicates with the National infrastructure using the EHR System Gateway. This EHR system implements the Intra-Organization-API to retrieve information from EHR systems and provides them to the National Infrastructure using the member state specific Cross-Organization-API. The Healthcare Provider can connect to Wellness Applications using the Wellness-API allowing those EHR Systems to import data provided by the Wellness Application.
 
 ### Participants
 
-- **EHR systems** — Can act as [Document Access Provider](actors.html#document-access-provider), and/or [Resource Access Provider](actors.html#resource-access-provider)
+- **EHR systems** — within the Healthcare Provider, all EHR systems are assumed to implement the Intra-Organization-API. Internally,it can implement this in different ways as is discussed in [EHR System composition](ehr-system-composition.html). EHR Systems can act as [Document Access Provider](actors.html#document-access-provider), and/or [Resource Access Provider](actors.html#resource-access-provider). 
+- **Healthcare Professionals** - typically employed by the Healthcare Provider that access EEHRxF information using the Intra-Organization-API.
 
-### Example Deployment Patterns
+### Requirements
 
-**Direct** — An EHR system exposes it's data directly for query as a Document or Resource Access Provider.
+Specific requirement related to this environment include:
 
-**Registry** - A Source EHR system(s) creates data and acts as a Document Publisher towards a organization registery (Document Access Provider). This registry offers access to this data to EHR systems acting as Document Consumers.
+* Regulatory
+  * The EHDS regulation does not contain specific Intra-Healthcare-Provider requirements
 
-**Facade** — An EHR system aggregates data from multiple internal EHR systems and presents a single [Document Access Provider](actors.html#document-access-provider) endpoint for EHR systems acting as Document Consumers to query.
+* Access patterns
+  * EHR systems may support resource and/or document based access.
+  * When deploying EHR Systems that support the registry deployment model, an Healthcare Provider is required to support at least on registry.
+   
+* Authorization
+  * EHR systems acting as Document/Resource Access providers may contain their own authorization server, or use an organization-level authorization server to control API access.
+  * EHR systems are **not** required to use EIHDAS, wallet based authorization.
 
-**Gateway** — An EHR system aggregates access to data from other EHR systems within the organization for the purposes of making that data available external to the organization. See the [Cross-Organization via National Infrastructure](usecase-cross-org.html) deployment scenario for more details.
+* Patient Identity
+  * Healthcare Organizations may have a single Enterprise Master Patient Index (EMPI) which identifies patients known to the organization, , and shares this patient identity with other EHR systems in the organization (for example, by offering the Patient.$match API described in the Patient Matching section), and may integrate with national patient information systems.
+  * The EHR System Gateway is responsible to ensure that any data provided to the national infrastructure holds the required National and European identifiers.
 
-### Authorization
+Other - feedback requested:
+* Custodian specifics -  store and allow access to all published EEHRxF document versions
 
-EHR systems acting as Document/Resource Access providers may contain their own authorization server, or use an organization-level authorization server to control API access.
-
-### Patient Identity
-
-Healthcare Organizations may have a single Enterprise Master Patient Index (EMPI) which identifies patients known to the organization, , and shares this patient identity with other EHR systems in the organization (for example, by offering the Patient.$match API described in the Patient Matching section), and may integrate with national patient information systems.
