@@ -1,5 +1,17 @@
 ### Overview 
 
+This environment relates to the exchange of information within a Healthcare Provider. The figure below shows the relevant actors and API's.
+
+<div>
+  <figure class="figure">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 816 442" class="figure-img img-responsive img-rounded center-block" style="max-width:40%; height:auto;" role="img" >
+      <image href="environment-intra-healthcare-provider.drawio.svg" width="816" height="442" preserveAspectRatio="xMidYMid meet" />
+    </svg>
+    <figcaption class="figure-caption"><em>Figure: Intra Healthcare Provider</em></figcaption>
+  </figure>
+  <p></p>
+</div>
+
 A healthcare organization deploying EHR systems with can connect them together to serve internal exchange needs or to aggregate data for external exchange. 
 
 ### Scope
@@ -27,8 +39,3 @@ EHR systems acting as Document/Resource Access providers may contain their own a
 ### Patient Identity
 
 Healthcare Organizations may have a single Enterprise Master Patient Index (EMPI) which identifies patients known to the organization, , and shares this patient identity with other EHR systems in the organization (for example, by offering the Patient.$match API described in the Patient Matching section), and may integrate with national patient information systems.
-
-
-
-
-

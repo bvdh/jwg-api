@@ -118,8 +118,8 @@ pages:
       title: EHR System Composition
     example-patient-summary.md:
       title: Retrieve a European Patient Summary
-    usecase-ehr-internal.md:
-      title: Organization-Internal Exchange
+    environment-healthcare-provider.md:
+      title: Intra Healthcare Provider Exchange Environment
     usecase-cross-org.md:
       title: Cross-Organization via National Infrastructure
     usecase-cross-border-ncp.md:
@@ -190,7 +190,7 @@ menu:
   Implementation:
     Overview: implementation.html
     Retrieve a European Patient Summary: example-patient-summary.html
-    Organization-Internal Exchange: usecase-ehr-internal.html
+    Organization-Internal Exchange: environment-healthcare-provider.html
     Cross-Organization via National Infrastructure: usecase-cross-org.html
     Cross-Border via NCP: usecase-cross-border-ncp.html
     Health Professional Access Service: usecase-health-professional-portal.html

@@ -19,7 +19,7 @@ The diagram below shows the main EHDS actors and the API boundaries between them
       <a href="usecase-health-data-portal.html"><title>Health Data Access Service</title><rect x="460" y="196" width="100" height="40" fill="transparent" pointer-events="all" /></a>
       <a href="usecase-health-data-portal.html"><title>Patient Access</title><rect x="464" y="261" width="96" height="30" fill="transparent" pointer-events="all" /></a>
       <a href="usecase-wellness-app.html"><title>Wellness App Access</title><rect x="469" y="320" width="86" height="58" fill="transparent" pointer-events="all" /></a>
-      <a href="usecase-ehr-internal.html"><title>Organization-Internal Exchange</title><rect x="177" y="349" width="75" height="40" fill="transparent" pointer-events="all" /></a>
+      <a href="environment-healthcare-provider.html"><title>Organization-Internal Exchange</title><rect x="177" y="349" width="75" height="40" fill="transparent" pointer-events="all" /></a>
     </svg>
     <figcaption class="figure-caption"><em>Figure: EHDS Overview</em></figcaption>
   </figure>
@@ -50,7 +50,7 @@ Member States must operate the national and cross-border infrastructure that ena
 
   - **Access services:** Member States must operate a patient-facing health data access service ([Art. 4](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202500327#art_4)) and a health professional access service ([Art. 12](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202500327#art_12)). Either can act as a consumer of the EHR system API; their service requirements are not specified here.
 
-- [**Healthcare providers:**](usecase-ehr-internal.html) Healthcare providers deploy one or more EHR systems to support care delivery, including EHR systems which support *internal* clinical workflows within an organization as well as EHR systems which support *cross-organization* exchange with national infrastructure, for example to meet the member state requirement [Art. 23(5)](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202500327#art_23) to connect their data to the national NCP for cross-border exchange. This enviroment holds the following system actors:
+- [**Healthcare providers:**](environment-healthcare-provider.html) Healthcare providers deploy one or more EHR systems to support care delivery, including EHR systems which support *internal* clinical workflows within an organization as well as EHR systems which support *cross-organization* exchange with national infrastructure, for example to meet the member state requirement [Art. 23(5)](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202500327#art_23) to connect their data to the national NCP for cross-border exchange. This enviroment holds the following system actors:
 
   - **EHR systems**: EHR systems must conform to the Interoperability Component implemented in this IG. [Art. 25(1)](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0327#art_25) requires EHR systems to include the European interoperability software component; [Annex II §2.1–2.4](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32025R0327#anx_II) requires that component to provide and receive priority-category data in EEHRxF format. An EHR system may implement the API directly, or the capability may be delivered by an associated gateway or facade that is treated as part of the deployed EHR system. 
 

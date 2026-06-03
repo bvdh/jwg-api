@@ -61,7 +61,7 @@
 <page key="priority-area-laboratory" name="Medical Test Results (Laboratory)"/>
 <page key="member-state-architectures" name="Member State Architectures"/>
 <page key="open-issues" name="Open Issues"/>
-<page key="usecase-ehr-internal" name="Organization-Internal Exchange"/>
+<page key="environment-healthcare-provider" name="Organization-Internal Exchange"/>
 <page key="patient-match" name="Patient Matching"/>
 <page key="priority-area-eps" name="Patient Summary (EPS)"/>
 <page key="priority-categories" name="Priority Categories"/>
