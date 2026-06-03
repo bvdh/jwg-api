@@ -1,28 +1,27 @@
 ### Overview
 
-A **Health Data Access Service** enables a **patient** to access their own health data from **Provider** systems (Proxy Service as defined in EHDS Article 4).
-
-### Actors
-
-- **Health Data Access Service** acts as [Document Consumer](actors.html#document-consumer) and/or [Resource Consumer](actors.html#resource-consumer)
-- **EHR systems** act as [Document Access Provider](actors.html#document-access-provider) and/or [Resource Access Provider](actors.html#resource-access-provider)
+A **Health Data Access Service** ([Art. 4](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202500327#art_4)) enables a patient to access their own health data from EHR systems. The service authenticates the patient and queries EHR systems on the patient's behalf.
 
 ### Scope
 
-This use case does not define complete requirements for the service itself; it defines how a service could use this interoperability model to access health data.
+This IG defines the API the access service uses when querying EHR systems. The access service itself — patient authentication (national eID, EU Digital Identity Wallet), consent management, and how queries are routed across EHR systems — is governed by Member State requirements and is out of scope here.
+
+### Participants
+
+- **Health Data Access Service** — [Document Consumer](actors.html#document-consumer) and/or [Resource Consumer](actors.html#resource-consumer). [Document Publisher](actors.html#document-publisher) for Patient-provided data.
+- **EHR system** — [Document Access Provider](actors.html#document-access-provider) and/or [Resource Access Provider](actors.html#resource-access-provider)
 
 ### Workflow
 
-1. Patient logs into the service (e.g., national eID)
-2. Patient reviews and manages consent preferences
-3. Service queries Provider systems for patient's data
-4. Service displays [documents](document-exchange.html) and [resources](resource-access.html) in patient-friendly format
-5. Patient downloads or shares information as needed
+1. Patient authenticates to the access service (e.g., national eID, EU Digital Identity Wallet)
+2. Patient reviews and manages consent preferences within the service
+3. Service queries EHR systems for the patient's [documents](document-exchange.html) and/or [resources](resource-access.html)
+4. Service presents data to the patient
 
-### Technical Flow
+### Authorization
 
-The service implements Consumer actors using [system-to-system authorization](authorization.html):
-- Patient authenticates to the Health Data Access Service (out of scope for this IG)
-- Service authenticates to Provider systems using backend services credentials
-- Service queries only for data belonging to the authenticated patient
-- Patient consent preferences are enforced by the service and/or provider systems
+The patient's identity and authorization are established at the access service. At the EHR API surface, the consumer is an authorized system-to-system caller; the mechanism is described in [Authorization](authorization.html). Patient consent preferences are enforced by the access service and/or the EHR system per Member State policy.
+
+#### Patient-Provided Data 
+
+Articles 5 give patients the right to insert data into to their health record using the Health Data Access Service. In this context, a Health Data Access service could also act as a [Document Publisher](actors.html#document-publisher), submitting patient-sourced documents to an EHR system via ITI-105. Patient-sourced content may be tagged using `.meta.security` or `Provenance` resources to distinguish it from clinician-authored data (informative; see content specifications). See the [Wellness App](usecase-wellness-app.html) for a related use case where wellness applications are used to submit patient-provided data.

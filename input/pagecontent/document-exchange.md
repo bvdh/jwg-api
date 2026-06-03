@@ -2,6 +2,8 @@
 
 Document exchange using IHE MHD (Mobile Health Documents) transactions. This IG inherits MHD transactions as-is, with constraints specific to EEHRxF content.
 
+For how different server backends (FHIR-native on-demand vs persisted/XDS-bridge) implement these transactions, see [Relationship to XDS/FHIR Document Sharing](background-xds-fhir.html).
+
 <div>
 <figure class="figure">
 <img src="docExchange_1.png" class="figure-img img-responsive img-rounded center-block" alt="Document Exchange Overview" style="width:50%">
@@ -112,6 +114,12 @@ The EHDS priority categories (Patient Summary, Laboratory Report, etc.) are regu
 Implementers: Does your system use or plan to use `category` for document classification? Would constraining `category` to the EHDS priority categories be useful for your search workflows, or conflict with other category schemes? Are there other good code sets for differentiating, for example, laboratory reports from imaging reports?
 
 </div>
+
+#### On-Demand Documents
+
+Some servers assemble documents on demand from operational data rather than serving pre-stored Bundles. MHD supports this: an on-demand DocumentReference has no `content.attachment.hash` or `content.attachment.size`. The `content.attachment.url` may invoke any endpoint that returns a valid Document Bundle, including FHIR operations (e.g., `Patient/[id]/$summary`).
+
+Consumers treat on-demand and persisted DocumentReferences identically — both are retrieved via ITI-68. Servers assembling on demand are not required to version or persist past renderings.
 
 #### Search Examples
 

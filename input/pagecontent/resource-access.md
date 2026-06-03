@@ -46,7 +46,6 @@ sequenceDiagram
 
 ### Constraints
 
-- **Read/search only** - No create/update/delete operations.
 - **Patient-scoped queries** - `patient` parameter required on all searches
 - Searches without `patient` parameter are rejected
 
