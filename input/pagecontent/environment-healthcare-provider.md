@@ -38,6 +38,10 @@ Specific requirement related to this environment include:
   * Healthcare Organizations may have a single Enterprise Master Patient Index (EMPI) which identifies patients known to the organization, , and shares this patient identity with other EHR systems in the organization (for example, by offering the Patient.$match API described in the Patient Matching section), and may integrate with national patient information systems.
   * The EHR System Gateway is responsible to ensure that any data provided to the national infrastructure holds the required National and European identifiers.
 
+* Import of data
+  
+* Export of data
+
 Other - feedback requested:
 * Custodian specifics -  store and allow access to all published EEHRxF document versions
 
