@@ -1,0 +1,31 @@
+@startuml
+  participant App
+  participant FHIRServer as "FHIR Server\n<Resource Server>"
+  participant AuthorizationServer as "Authorization Server"
+  
+  group Discover
+  App -> FHIRServer ++: Discover Request (.wellknown/smart-configuration)
+  App <<-- FHIRServer --: <smart-configuration>
+  end group
+
+  group Get Access Token
+    alt
+    else Backend Services
+      App -> AuthorizationServer ++: Access-token Request (<client-credentials>)
+      App <-- AuthorizationServer -- : <access-token>
+    else User/Patient standalone launch
+      App -> AuthorizationServer ++: REDIRECT: <authorization-endpoint>
+      AuthorizationServer -> eIDAS: authenticate user
+      eIDAS --> AuthorizationServer: authentication result
+      note over AuthorizationServer: use eDIAS authentication result\nto determine if user is authenticated\nand authorized to access the app
+      App <<-- AuthorizationServer -- : REDIRECT: redirectUrl(<authorization-token>)
+      App -> AuthorizationServer ++: get <token-endpoint> (<authorization-token>, <client-credentials>)
+      App <-- AuthorizationServer -- : <access-token>
+    end
+  end group
+
+  group Access Content
+    App -> FHIRServer: Request Resources (<access-token>)
+  end group
+
+  @enduml

@@ -12,12 +12,12 @@ As indicated the in the [EHDS Interoperability Landscape](implementation.html), 
 
 ### EHDS requirements
 
-Authentication:
+**Authentication:**
 
   * On HDAS: eIDAS-compliant electronic identification for Patients ([Art16](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202500327#art_16).
   * On HPAS: eIDAS-compliant electronic identification Health professionals ([Art12](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202500327#art_12)).
 
-Authorization:
+**Authorization:**
 
 * Patient-controlled authorization ([Art4](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202500327#art_4), [Art7](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202500327#art_7), [Art8](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202500327#art_8)), allowing the patient to
   * authorize other persons to access their data ([Art4](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202500327#art_4))
@@ -26,7 +26,7 @@ Authorization:
 * Access must be provided to only the relevant and necessary data  ([Art11](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202500327#art_11))
 * Member states define which Healthcare Professional can access what data categories. 
 
-Secure Data Exchange:
+**Secure Data Exchange:**
 
 * Secure exchange of data using standard formats
 * Standardised EHR exchange format ([Art15](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202500327#art_15))
@@ -40,23 +40,73 @@ This IG adopts [FHIR SMART App Launch](https://hl7.org/fhir/smart-app-launch/app
 * Healthcare Professional facing systems support the `Clinician Access for Standalone Apps` or `Clinician Access for EHR Launch` capabilities (see [SMART App Launch Capabilities](https://hl7.org/fhir/smart-app-launch/conformance.html)).
 * System-2-system interactions support [SMART Backend Services](https://hl7.org/fhir/smart-app-launch/backend-services.html) 
 
-The table below shows the requiresments for supporting [FHIR SMART App Launch](https://hl7.org/fhir/smart-app-launch/app-launch.html).
+SMART App Launch is compatible with IHE-IUA and adds FHIR server access specific launch mechanisms and scope definitions.
 
-| API                | Backend | Patient Access | Clinician Access | EIDAS |
-|------------------- |---------|----------------|------------------|-------|
-| Patient Access     | -       | R              | O                | R     |
-| HP Access          | -       | -              | R (EIDAS)        | R     |
-| Intra-country      | R       | -              | O (EIDAS)        | R     |
-| Intra-Organization | R       | -              | R                | R     |
-| Wellness           | -       | -              | R (EIDAS)        | R     |
+The table below shows the requirements for supporting [FHIR SMART App Launch](https://hl7.org/fhir/smart-app-launch/app-launch.html).
 
- is required orSHOULD be supported. A deployment MAY use another authorization scheme where its context requires, declaring that scheme in its CapabilityStatement. Absent such a declaration, SMART Backend Services is the expected default at the EHR API surface—a single inherited, testable mechanism that maximizes interoperability.
+<table class="grid">
+  <thead>
+    <tr><th>API</th>               <th>Backend</th><th>Patient Access</th><th>Clinician Access</th><th>EIDAS</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Patient</td>    <td>-</td>      <td>R</td>             <td>O</td>               <td>R</td>    </tr>
+    <tr><td>Healthcare Professional</td>         <td>-</td>      <td>-</td>             <td>R (eIDAS)</td>       <td>R</td>    </tr>
+    <tr><td>Intra-country</td>     <td>R</td>      <td>-</td>             <td>O (eIDAS)</td>       <td>R</td>    </tr>
+    <tr><td>Intra-Organization</td><td>R</td>      <td>-</td>             <td>O</td>               <td>R</td>    </tr>
+    <tr><td>Wellness</td>          <td>-</td>      <td>-</td>             <td>R (eIDAS)</td>       <td>R</td>    </tr>
+    <tr>      <td colspan="5">Where R stands for REQUIRED and O for OPTIONAL.</td>    </tr>
+  </tbody>
+</table>
+
+When the table indicates (eIDAS), it means that authentication SHALL be based on eIDAS integration in OAuth2 as is specified by [eIDAS](https://eidas.ec.europa.eu/efda/home). A deployment MAY use another, additional, authorization schemes where its context requires it and allows it, when doing so, it SHALL declare that scheme in its CapabilityStatement. Absent such a declaration, the required SMART App Launch Capability presented in the table above is the expected default.
+
+In the more infrastructure related environments, SMART Backend Services is required as the systems in these environments need to ensure that the correct data is aggregated at the specific points (e.g. in EHR System Gateways), which requires backend service communication that does not involve a user.
 
 Where SMART App Launch is used, it is adopted as specified—including grant types, client authentication (`private_key_jwt`), and related JWT requirements. As a profile on SMART, all underlying SMART requirements still apply; omitting a detail from this IG does not exempt implementations from SMART requirements.
 
 SMART Backend Services is itself a profile of [RFC 6749](https://www.rfc-editor.org/rfc/rfc6749) (`client_credentials` grant) and [RFC 8414](https://www.rfc-editor.org/rfc/rfc8414) (authorization-server metadata), packaged as a single testable mechanism—preferred over the bare RFCs for that reason. National trust frameworks that use coarser, regulatory-level scope groupings operate at the access-service layer; the EHR API enforces resource-level scopes.
 
 > **Note:** This IG uses IHE IUA actor definitions grouped with the SMART Backend Services requirements. Where a deployment uses SMART and the two differ, SMART Backend Services is authoritative.
+
+## Authorization and eIDAS
+
+eIDAS is build on [OpenID for Verifiable Credential Issuance 1.0](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html). Within this specification the integration with eIDAS is assumed to occur within the OAuth2 Authorization step as is shown in the figure below.
+
+
+```mermaid
+sequenceDiagram
+  participant App
+  participant FHIRServer@{"alias":"FHIR Server"}
+  participant AuthorizationServer@{"alias":"Authorization Server"}
+  participant eIDAS@{"alias":"eIDAS"}
+
+  App -> FHIRServer: Discover Request
+  activate FHIRServer
+  FHIRServer -->>  App: <authorization-server>
+  deactivate FHIRServer
+  
+  App -> AuthorizationServer: Authorization Request
+  activate AuthorizationServer
+    AuthorizationServer -> eIDAS: identify user( <requested info> )
+    activate eIDAS
+    eIDAS -->> AuthorizationServer: <user info>
+    deactivate eIDAS
+  AuthorizationServer -->> App: <authorization-token>
+  deactivate AuthorizationServer
+
+  App -> AuthorizationServer: Access-token Request (<authorization-token>)
+  activate AuthorizationServer
+  AuthorizationServer -->> App: <access-token>
+  deactivate AuthorizationServer
+
+  App -> FHIRServer: Request Resources (<access-token>)
+```
+
+The figure shows an abstract SMART App Launch flow. The eIDAS is included in the authorization step. The user authentication is done using the eIDAS wallet. The response is the user information that is requested by the Authorization Server. This information is used to determine the access the user is allowed to have on the FHIRserver.
+
+## User access and logging
+
+When resource access is performed based on an `access-token` that includes user information (`fhiruser`) and the Resource Server has this information (e.g. through an introspection call), this information SHALL be included in the logging.
 
 ## OLD
 

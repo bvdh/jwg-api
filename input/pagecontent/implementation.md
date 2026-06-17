@@ -9,7 +9,7 @@ The diagram below shows the main EHDS actors and the API boundaries between them
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 816 442" class="figure-img img-responsive img-rounded center-block" style="max-width:100%; height:auto;" role="img" aria-labelledby="ehds-overview-title ehds-overview-desc">
       <title id="ehds-overview-title">EHDS Overview</title>
       <desc id="ehds-overview-desc">Overview diagram of EHDS deployment scenarios with links to related implementation pages.</desc>
-      <image href="EHDS-overview.drawio.png" width="816" height="442" preserveAspectRatio="xMidYMid meet" />
+      <image href="EHDS-overview.drawio.svg" width="816" height="442" preserveAspectRatio="xMidYMid meet" />
       <a href="usecase-cross-border-ncp.html"><title>Cross-Border via NCP</title><rect x="334" y="74" width="170" height="30" fill="transparent" pointer-events="all" /></a>
       <a href="usecase-cross-border-ncp.html"><title>National Contact Point</title><rect x="77" y="118" width="100" height="58" fill="transparent" pointer-events="all" /></a>
       <a href="usecase-cross-border-ncp.html"><title>National Contact Point</title><rect x="675" y="118" width="100" height="58" fill="transparent" pointer-events="all" /></a>
